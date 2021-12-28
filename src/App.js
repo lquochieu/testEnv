@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Web3 from "web3";
+import { useEffect } from "react";
+require("dotenv").config();
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  console.log(process.env.CONTRACT_ADDRESS);
+  const providerUrl =
+    "https://rinkeby.infura.io/v3/4a901a0fd16b4bba8be8a332c5762fe2";
+
+  useEffect(() => {
+    const web3 = new Web3(providerUrl);
+    let provider = window.ethereum;
+    if (typeof provider !== "underfined") {
+      provider.request({ method: "eth_requestAccounts" }).then((accounts) => {
+        console.log(accounts);
+      }).catch((err) => {
+        console.log(err);
+      });
+    }
+  });
+
+  return <div className="App"></div>;
 }
 
 export default App;
